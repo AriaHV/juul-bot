@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 const Database = require('./db.js');
 const { token } = require('./secret.json');
 const { prefixes } = require('./config.json');
-const { getCommands } = require('./utils');
+const { getCommands, isBotAuthor } = require('./utils');
 
 const client = new Discord.Client();
 
@@ -14,7 +14,7 @@ client.commands = getCommands();
 
 client.once('ready', () => {
 	console.log('Ready!');
-	client.user.setPresence({ game: { name: '\'j help' } });
+	client.user.setPresence({ game: { name: `${prefixes[0]} help` } });
 
 });
 
@@ -26,10 +26,16 @@ client.on('message', message => {
 	const prefixUsed = args.shift().toLowerCase();
 	const commandName = args.shift().toLowerCase();
 
-	const command =
+	let command =
 		client.commands['general'].get(commandName)
 		|| client.commands['general'].find(cmd => cmd.aliases && cmd.aliases.includes(commandName))
 		|| client.commands['response'].get(commandName);
+
+	if (isBotAuthor(message.author)) {
+		const authorCommand = client.commands['author'].get(commandName)
+		|| client.commands['author'].find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+		if (authorCommand) command = authorCommand;
+	}
 
 	if (!command) return;
 

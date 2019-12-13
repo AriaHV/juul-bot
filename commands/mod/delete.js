@@ -3,7 +3,6 @@ const { RichEmbed, Client, Channel, Message } = require('discord.js');
 module.exports = {
 	name: 'delete',
 	aliases: ['-d'],
-	type: 'mod',
 	description: 'Deletes a message',
 
 	execute(message, args) {

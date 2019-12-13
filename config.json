@@ -1,4 +1,5 @@
 {
-  "prefixes": [ "'juul", "'j" ],
+  "authorId": "296715612149776384",
+  "prefixes": [ "-j", "juul" ],
   "embedColor": "#FF6B6B"
-}
+} 

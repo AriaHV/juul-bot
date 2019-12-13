@@ -1,5 +1,6 @@
 const { readdirSync, statSync, Dirent } = require('fs');
 const Discord = require('discord.js');
+const { authorId } = require('./config.json');
 
 const getCommands = () => {
 	const commands = {};
@@ -18,4 +19,8 @@ const getCommands = () => {
 	return commands;
 };
 
-module.exports = { getCommands };
+const isBotAuthor = (user) => {
+	return user.id == authorId;
+};
+
+module.exports = { getCommands, isBotAuthor };
