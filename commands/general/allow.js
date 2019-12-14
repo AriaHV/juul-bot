@@ -6,10 +6,12 @@ module.exports = {
 	description: 'Globally allow tag-response commands.',
 
 	async execute(message, args) {
-		if (await !message.client.database.isExcluded(message.author)) {
-			message.reply('you already allow tag-response commands globally. ');
+		if (!(await message.client.database.isExcluded(message.author))) {
+			await message.reply('you already allow tag-response commands globally.');
+			return;
 		}
 
 		await message.client.database.unregisterExclusion(message.author);
+		await message.reply('you now globally allow tag-response commands.');
 	},
 };

@@ -15,7 +15,7 @@ client.once('ready', () => {
 
 });
 
-client.on('message', message => {
+client.on('message', async message => {
 	const args = message.content.split(/ +/);
 
 	if (!prefixes.includes(args[0]) || message.author.bot) return;
@@ -26,10 +26,19 @@ client.on('message', message => {
 	// Check for general and response commands
 	let command =
 		client.commands['general'].get(commandName)
-		|| client.commands['general'].find(cmd => cmd.aliases && cmd.aliases.includes(commandName))
-		|| client.commands['response'].get(commandName);
+		|| client.commands['general'].find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
-	// Check for author commands
+	const invalidMentions =
+	(await Promise.all(message.mentions.users.map(user => client.database.isAnyExcluded(user, message.guild))))
+		.filter(x => x)
+		.includes(true);
+
+	if (!invalidMentions) {
+		const responseCommand = client.commands['response'].get(commandName);
+		if (responseCommand) command = responseCommand;
+	}
+
+	// Check for author commands3
 	if (isBotAuthor(message.author)) {
 		const authorCommand = client.commands['author'].get(commandName)
 		|| client.commands['author'].find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
@@ -39,7 +48,7 @@ client.on('message', message => {
 	if (!command) return;
 
 	try {
-		command.execute(message, args);
+		await command.execute(message, args);
 	}
 	catch (error) {
 		console.error(error);

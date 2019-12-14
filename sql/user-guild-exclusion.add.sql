@@ -1,2 +1,2 @@
-INSERT INTO user_guild_exclusion
+INSERT INTO user_guild_exclusions
 VALUES ($1, $2);

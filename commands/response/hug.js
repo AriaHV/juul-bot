@@ -7,9 +7,9 @@ module.exports = {
 	type: 'response',
 	description: 'A hug command to hug another user. How nice!',
 
-	execute(message, args) {
+	async execute(message, args) {
 		if (!message.mentions.users.size) {
-			return message.reply('you need to tag a user in order to hug them!');
+			return await message.reply('you need to tag a user in order to hug them!');
 		}
 
 		// TODO: refactor
@@ -28,6 +28,6 @@ module.exports = {
 			.setImage(responseUrl)
 			.setDescription(responseDescription);
 
-		message.channel.send(embed);
+		await message.channel.send(embed);
 	},
 };
