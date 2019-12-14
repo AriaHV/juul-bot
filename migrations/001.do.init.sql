@@ -9,10 +9,10 @@ CREATE TABLE user_guild_exclusions (
 	);
 
 CREATE TABLE response_command_entries (
-	entry_id			AS SERIAL,
-	command_name 		AS varchar(32),
-	embed_image			AS TEXT
-	embed_description 	AS TEXT
+	entry_id serial PRIMARY KEY,
+	command_name varchar(32),
+	embed_image TEXT,
+	embed_description TEXT
 	);
 
 

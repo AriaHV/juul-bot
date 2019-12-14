@@ -5,7 +5,7 @@ module.exports = {
 	aliases: ['-d'],
 	description: 'Deletes a message',
 
-	execute(message, args) {
+	async execute(message, args) {
 		// const nArgs = 1;
 		// if(args.length != nArgs) {
 		// 	message.reply('incorrect amount of arguments for this command.');
@@ -39,7 +39,5 @@ module.exports = {
 				message.delete();
 			})
 			.catch(console.error);
-
-
 	},
 };

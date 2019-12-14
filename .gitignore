@@ -1,3 +1,4 @@
 node_modules
 .vs
 secret.json
+postgrator.json

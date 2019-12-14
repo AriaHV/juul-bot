@@ -1,3 +1,4 @@
+const dbconfig = require('./dbconfig.json');
 const { readdirSync, readFileSync, openSync } = require('fs');
 const { Pool } = require('pg');
 
@@ -16,7 +17,7 @@ const normaliseId = (id) => parseInt(id).toString(16);
 
 class Database {
 	constructor() {
-		this.db = new Pool();
+		this.db = new Pool(dbconfig);
 		this.queries = loadQueries();
 	}
 
@@ -28,7 +29,7 @@ class Database {
 
 	async isGuildExcluded(user, guild) {
 		const queryString = this.queries['user-guild-exclusion.get'];
-		const result = await this.db.query(queryString, [normaliseId(user.id), normaliseId(guild.idl)]);
+		const result = await this.db.query(queryString, [normaliseId(user.id), normaliseId(guild.id)]);
 		return result.rows.length > 0;
 	}
 

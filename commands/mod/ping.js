@@ -3,7 +3,7 @@ module.exports = {
 	aliases: ['-pp'],
 	description: 'A simple ping-pong command for bot debugging. [mod-version]',
 
-	execute(message, args) {
-		message.channel.send('pong! [mod-version]');
+	async execute(message, args) {
+		await message.channel.send('pong! [mod-version]');
 	},
 };

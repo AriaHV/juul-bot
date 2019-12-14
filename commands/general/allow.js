@@ -5,11 +5,11 @@ module.exports = {
 	aliases: ['-a'],
 	description: 'Globally allow tag-response commands.',
 
-	execute(message, args) {
-		if (!message.client.database.isExcluded(message.author)) {
-			message.reply('You already allow tag-response commands globally. ');
+	async execute(message, args) {
+		if (await !message.client.database.isExcluded(message.author)) {
+			message.reply('you already allow tag-response commands globally. ');
 		}
 
-		message.client.database.unregisterExclusion(message);
+		await message.client.database.unregisterExclusion(message.author);
 	},
 };

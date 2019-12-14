@@ -5,11 +5,11 @@ module.exports = {
 	aliases: ['-d'],
 	description: 'Globally deny tag-response commands.',
 
-	execute(message, args) {
-		if (message.client.database.isExcluded(message.author)) {
-			message.reply('You already deny tag-response commands globally. ');
+	async execute(message, args) {
+		if (await message.client.database.isExcluded(message.author)) {
+			await message.reply('you already deny tag-response commands globally. ');
 		}
 
-		message.client.database.registerExclusion(message);
+		await message.client.database.registerExclusion(message.author);
 	},
 };
