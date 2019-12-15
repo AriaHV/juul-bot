@@ -1,0 +1,2 @@
+SELECT DISTINCT command_name
+FROM response_command_entries;

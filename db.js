@@ -60,6 +60,17 @@ class Database {
 		const queryString = this.queries['user-guild-exclusion.delete'];
 		return this.db.query(queryString, [normaliseId(user.id), normaliseId(guild.id)]);
 	}
+
+	getResponseCommands(command) {
+		const queryString = this.queries['response-command-entries.get'];
+		return this.db.query(queryString, [command]);
+	}
+
+	getResponseCommandNames() {
+		const queryString = this.queries['response-command-names.get'];
+		return this.db.query(queryString);
+	}
+
 }
 
 module.exports = { Database };

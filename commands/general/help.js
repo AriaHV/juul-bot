@@ -30,3 +30,16 @@ const getEmbedDescription = (collection) => {
 	embedDescription += 'check out my [github](https://github.com/AriaHV/juul-bot)';
 	return embedDescription;
 };
+
+// const getEmbedDescription = async (message, collection, args) => {
+// 	const localExcluded = await message.client.database.isGuildExcluded(message.author, message.guild);
+// 	const globalExcluded = await message.client.database.isExcluded(message.author);
+
+// 	const s = 	`${message.author.username}'s profile summary\n\n` +
+// 				'blacklisted scopes```' +
+// 				`[global]: ${globalExcluded}` +
+// 				`[server]: ${globalExcluded}` +
+// 				`[channel]: not implemented yet` +
+// 				'```' +
+// };
+

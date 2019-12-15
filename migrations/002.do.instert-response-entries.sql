@@ -1,0 +1,7 @@
+INSERT INTO response_command_entries (command_name, embed_image, embed_description) VALUES ('admire', 'https://i.imgur.com/0YxHQ3O.gif', '${mentioned}! you have an admirer.'); 
+INSERT INTO response_command_entries (command_name, embed_image, embed_description) VALUES ('admire', 'https://i.imgur.com/2sekse9.gif', '${mentioned}! you have an admirer.'); 
+INSERT INTO response_command_entries (command_name, embed_image, embed_description) VALUES ('admire', 'https://i.imgur.com/cyQyfuo.gif', '${mentioned}! you have an admirer.'); 
+INSERT INTO response_command_entries (command_name, embed_image, embed_description) VALUES ('admire', 'https://i.imgur.com/LeqfHDv.gif', '${mentioned}! you have an admirer.'); 
+INSERT INTO response_command_entries (command_name, embed_image, embed_description) VALUES ('admire', 'https://i.imgur.com/fQeW2Ev.gif', '${mentioned}! you have an admirer.'); 
+INSERT INTO response_command_entries (command_name, embed_image, embed_description) VALUES ('admire', 'https://i.imgur.com/Azf5xJS.gif', '${mentioned}! you have an admirer.'); 
+INSERT INTO response_command_entries (command_name, embed_image, embed_description) VALUES ('admire', 'https://i.imgur.com/BzQBWD6.gif', '${mentioned}! you have an admirer.'); 
