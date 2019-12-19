@@ -1,4 +1,3 @@
-const dbconfig = require('./dbconfig.json');
 const { readdirSync, readFileSync, openSync } = require('fs');
 const { Pool } = require('pg');
 
@@ -17,7 +16,7 @@ const normaliseId = (id) => parseInt(id).toString(16);
 
 class Database {
 	constructor() {
-		this.db = new Pool(dbconfig);
+		this.db = new Pool();
 		this.queries = loadQueries();
 	}
 
