@@ -2,7 +2,6 @@ require('dotenv').config();
 const fs = require('fs');
 const Discord = require('discord.js');
 const { Database } = require('./db.js');
-const { token } = require('./secret.json');
 const { prefixes } = require('./config.json');
 const { getCommands, isBotAuthor, sendResponseCommand } = require('./utils');
 const response = require('./commands/response/response');
@@ -54,4 +53,4 @@ client.on('message', async message => {
 
 });
 
-client.login(token);
+client.login(process.env.DISCORD_TOKEN);
