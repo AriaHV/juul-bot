@@ -1,7 +1,7 @@
 require('dotenv').config();
 const fs = require('fs');
 const Discord = require('discord.js');
-const { Database } = require('./db.js');
+const { Database } = require('./database/db.js/index.js');
 const { prefixes } = require('./config.json');
 const { getCommands, isBotAuthor, sendResponseCommand } = require('./utils');
 const response = require('./commands/response/response');
