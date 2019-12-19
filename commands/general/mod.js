@@ -3,7 +3,8 @@ const { Client, Permissions, Message } = require('discord.js');
 module.exports = {
 	name: 'mod',
 	aliases: ['-m'],
-	description: 'A command for moderation actions.',
+	description: 'Performs moderation actions.',
+	usages: ['mod', 'mod [command]'],
 
 	async execute(message, args) {
 		// Don't execute unless member has guild management permission

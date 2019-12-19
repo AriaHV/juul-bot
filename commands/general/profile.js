@@ -4,7 +4,8 @@ const { RichEmbed } = require('discord.js');
 module.exports = {
 	name: 'profile',
 	aliases: ['-p'],
-	description: 'Displays profile information.',
+	description: 'Displays profile information. This includes allowing-denying commands.',
+	usages: ['profile'],
 
 	async execute(message, args) {
 		let exclusionText = 'allow response commands [global]:\t';
