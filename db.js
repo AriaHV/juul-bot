@@ -16,7 +16,7 @@ const normaliseId = (id) => parseInt(id).toString(16);
 
 class Database {
 	constructor() {
-		this.db = new Pool();
+		this.db = new Pool({ connectionString: process.env.DATABASE_URL });
 		this.queries = loadQueries();
 	}
 
