@@ -1,25 +1,27 @@
-const { Database } = require('../../database/db');
 const { RichEmbed } = require('discord.js');
+const db = require('../../database/blacklist');
+const { getProfileBlacklistString } = require('../../utils/blacklist');
 
 module.exports = {
 	name: 'profile',
 	aliases: ['-p'],
-	description: 'Displays profile information. This includes allowing-denying commands.',
-	usages: ['profile'],
+	description: 'Displays blacklist profile.',
+	usages: ['blacklist profile'],
 
 	async execute(message, args) {
-		let exclusionText = 'allow response commands [global]:\t';
-		let guildExclusionText = 'allow response commands [guild]:\t';
+		const database = message.client.database;
+		const user = message.author;
+		const guild = message.guild;
+		const channel = message.channel;
 
-		exclusionText += await message.client.database.isExcluded(message.author) ? 'deny' : 'allow';
-		guildExclusionText += await message.client.database.isGuildExcluded(message.author, message.guild) ? 'deny' : 'allow';
-		const exclusionPrefix = await message.client.database.isExcluded(message.author) ? '- ' : '+ ';
-		const guildExclusionPrefix = await message.client.database.isGuildExcluded(message.author, message.guild) ? '- ' : '+ ';
+		const globalBlacklist = getProfileBlacklistString('global', await db.getGlobalBlacklisted(database, user));
+		const guildBlacklist = getProfileBlacklistString('guild', await db.getGuildBlacklistStatus(database, user, guild));
+		const channelBlacklist = getProfileBlacklistString('channel', await db.getChannelBlacklistStatus(database, user, channel));
+		const s = [globalBlacklist, guildBlacklist, channelBlacklist].join('\n');
 
-		const embedDescription = `**${message.author.username}'s profile**` +
-		'```diff\n' +
-		exclusionPrefix + exclusionText + '\n' +
-		guildExclusionPrefix + guildExclusionText +
+		const embedDescription = `**${user.username}'s blacklist profile**` +
+        '```diff\n' +
+        s +
 		'```';
 
 		const embed = new RichEmbed()
