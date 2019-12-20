@@ -5,7 +5,7 @@ const BlacklistStatus = Object.freeze({ blacklist:0, inherit: 1, whitelist: 2 })
 
 const getGlobalBlacklisted = async (database, user) => {
 	const result = await database.query(queries['global-blacklist.get'], [normaliseId(user.id)]);
-	return result.rows.length > 0;
+	return (result.rows.length > 0) ? BlacklistStatus.blacklist : BlacklistStatus.whitelist;
 };
 
 const setGlobalBlacklisted = (database, user, blacklisted) => {
@@ -28,6 +28,7 @@ const setGuildBlacklistStatus = (database, user, guild, status) => {
 	}
 	else {
 		if (!(status == BlacklistStatus.blacklist || BlacklistStatus.whitelist)) {
+
 			return null;
 		}
 
@@ -36,16 +37,16 @@ const setGuildBlacklistStatus = (database, user, guild, status) => {
 	}
 };
 
-const getChannelBlacklistStatus = async (database, user, guild, channel) => {
+const getChannelBlacklistStatus = async (database, user, channel) => {
 	const result = await database.query(
 		queries['channel-blacklist.get'],
-		[normaliseId(user.id), normaliseId(guild.id), normaliseId(channel.id)]);
+		[normaliseId(user.id), normaliseId(channel.id)]);
 
 	if (result.rows.length == 0) { return BlacklistStatus.inherit; }
 	return (result.rows[0].blacklisted ? BlacklistStatus.blacklist : BlacklistStatus.whitelist);
 };
 
-const setChannelBlacklistStatus = (database, user, guild, channel, status) => {
+const setChannelBlacklistStatus = (database, user, channel, status) => {
 	if (status == BlacklistStatus.inherit) {
 		return database.query(queries['channel-blacklist.delete'],
 			[normaliseId(user.id), normaliseId(channel.id)]);
