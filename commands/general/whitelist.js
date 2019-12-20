@@ -16,7 +16,7 @@ module.exports = {
 			return;
 		}
 
-		db.setGlobalBlacklisted(database, user, true);
+		db.setGlobalBlacklisted(database, user, false);
 		message.reply('you now whitelists tag-response commands on a global scope');
 	},
 };
