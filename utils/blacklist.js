@@ -3,7 +3,7 @@ const db = require('../database/blacklist');
 const getProfileBlacklistString = (statuses, padding) => {
 	const rows = statuses.map(status => {
 		const s = getProfileBlacklistStatusStrings(status.status);
-		return [s.prefix, `[${status.scope}]`, s.nessage];
+		return [s.prefix, `[${status.scope}]`, s.message];
 	});
 	console.log('[blacklist.getProfileBlacklistString]:  ' + rows);
 	return getStringFromMatrix(rows, padding);
@@ -12,7 +12,7 @@ const getProfileBlacklistString = (statuses, padding) => {
 const getStringFromMatrix = (rows, padding) => {
 	const n = rows[0].length;
 	const max = [];
-	for (let i = 0; i < rows[0].length; i++) max.push(Math.max(rows.map(row => row[i])));
+	for (let i = 0; i < rows[0].length; i++) max.push(Math.max(rows.map(row => row[i].lengt)));
 	rows = rows.map(row => paddedStringRow(row, max).join(' '.repeat(padding)));
 	return rows.join('\n');
 };
