@@ -31,7 +31,7 @@ const getCommandsHelpString = (collection) => {
 };
 
 const getCommandString = (command) => {
-	return 	[getCommandString(command),
+	return 	[getCommandTitleString(command),
 		getDescriptionString(command),
 		getCommandUsagesString(command)].join('\n');
 };
