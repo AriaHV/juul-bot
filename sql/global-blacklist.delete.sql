@@ -1,3 +1,3 @@
-DELETE
+DELETE 
 FROM global_blacklist
-VALUES ($1);
+WHERE user_id = $1;
