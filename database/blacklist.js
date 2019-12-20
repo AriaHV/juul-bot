@@ -28,12 +28,11 @@ const setGuildBlacklistStatus = (database, user, guild, status) => {
 	}
 	else {
 		if (!(status == BlacklistStatus.blacklist || BlacklistStatus.whitelist)) {
-			console.error('Status value is not a valide blacklist status');
 			return null;
 		}
 
 		const args = [normaliseId(user.id), normaliseId(guild.id), (status == BlacklistStatus.blacklist)];
-		return database.query(queries['guild-blacklist.set'], args);
+		return database.query(queries['guild-blacklist.add'], args);
 	}
 };
 
@@ -49,16 +48,15 @@ const getChannelBlacklistStatus = async (database, user, guild, channel) => {
 const setChannelBlacklistStatus = (database, user, guild, channel, status) => {
 	if (status == BlacklistStatus.inherit) {
 		return database.query(queries['channel-blacklist.delete'],
-			[normaliseId(user.id), normaliseId(guild.id), normaliseId(channel.id)]);
+			[normaliseId(user.id), normaliseId(channel.id)]);
 	}
 	else {
 		if (!(status == BlacklistStatus.blacklist || BlacklistStatus.whitelist)) {
-			console.error('Status value is not a valide blacklist status');
 			return null;
 		}
 
-		const args = [normaliseId(user.id), normaliseId(guild.id), normaliseId(channel.id), (status == BlacklistStatus.blacklist)];
-		return database.query(queries['channel-blacklist.set'], args);
+		const args = [normaliseId(user.id), normaliseId(channel.id), (status == BlacklistStatus.blacklist)];
+		return database.query(queries['channel-blacklist.add'], args);
 	}
 };
 
