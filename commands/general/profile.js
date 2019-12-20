@@ -1,4 +1,4 @@
-const { Database } = require('../../db');
+const { Database } = require('../../database/db');
 const { RichEmbed } = require('discord.js');
 
 module.exports = {
