@@ -2,13 +2,14 @@ require('dotenv').config();
 const fs = require('fs');
 const Discord = require('discord.js');
 const { Database } = require('./database/db.js');
-const { prefixes } = require('./config.json');
+const { prefixes, testingPrefixes } = require('./config.json');
 const { getCommands, isBotAuthor, sendResponseCommand } = require('./utils');
 const response = require('./commands/response/response');
 
 const client = new Discord.Client();
 client.database = new Database();
 client.commands = getCommands();
+client.prefixes = (process.env.DISCORD_TOKEN) ? prefixes : testingPrefixes;
 
 client.once('ready', () => {
 	console.log('Ready!');
@@ -19,7 +20,7 @@ client.once('ready', () => {
 client.on('message', async message => {
 	const args = message.content.split(/ +/);
 
-	if (!prefixes.includes(args[0]) || message.author.bot) return;
+	if (!client.prefixes.includes(args[0]) || message.author.bot) return;
 
 	const prefixUsed = args.shift().toLowerCase();
 	const commandName = args.shift().toLowerCase();
