@@ -5,7 +5,7 @@ const getProfileBlacklistString = (statuses, padding) => {
 		const s = getProfileBlacklistStatusStrings(status.status);
 		return [s.prefix, `[${status.scope}]`, s.nessage];
 	});
-
+	console.log('[blacklist.getProfileBlacklistString]:  ' + rows);
 	return getStringFromMatrix(rows, padding);
 };
 
@@ -18,6 +18,8 @@ const getStringFromMatrix = (rows, padding) => {
 };
 
 const paddedStringRow = (row, max) => {
+	console.log('[blacklist.getProfileBlacklistString]:  ' + max);
+	console.log('[blacklist.getProfileBlacklistString]:  ' + row);
 	for (let i = 0; i < row.length; i++) row[i] = row[i] + ' '.repeat(max[i] - row[i].length);
 	return row;
 };
