@@ -11,9 +11,8 @@ const getProfileBlacklistString = (statuses, padding) => {
 
 const getStringFromMatrix = (rows, padding) => {
 	const n = rows[0].length;
-	const max = [];
-	for (let i = 0; i < rows[0].length; i++) max.push(Math.max(rows.map(row => row[i].lengt)));
-	rows = rows.map(row => paddedStringRow(row, max).join(' '.repeat(padding)));
+	const max = Math.max(rows.map(row => Math.max(row)));
+	rows = rows.map(row => paddedStringRow(row, [max, max, max])).join(' '.repeat(padding));
 	return rows.join('\n');
 };
 
