@@ -38,8 +38,6 @@ class Database {
 	async isAnyExcluded(user, guild) {
 		const excluded = await this.isExcluded(user);
 		const guildExcluded = await this.isGuildExcluded(user, guild);
-		console.log('global: ' + excluded);
-		console.log('local: ' + guildExcluded);
 		return excluded || guildExcluded;
 	}
 

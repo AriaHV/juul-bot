@@ -12,6 +12,9 @@ module.exports = {
 		const guild = message.guild;
 		const channel = message.channel;
 
+		// TODO: remove logging when done
+		console.log('[blacklist.execute]:\t' + database);
+
 		const globalBlacklistStatus = await db.getGlobalBlacklisted(database, user);
 		const guildBlacklistStatus = await db.getGuildBlacklistStatus(database, user, guild);
 		const channelBlacklistStatus = await db.getChannelBlacklistStatus(database, user, channel);

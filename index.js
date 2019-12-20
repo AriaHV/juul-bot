@@ -47,7 +47,6 @@ client.on('message', async message => {
 	}
 
 	const responseCommandNames = await client.database.getResponseCommandNames();
-	console.log(responseCommandNames);
 	if (responseCommandNames.rows.map(x => x.command_name).includes(commandName)) {
 		response.execute(message, [commandName]);
 	}

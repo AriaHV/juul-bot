@@ -33,10 +33,8 @@ const sendResponseCommand = (message, entry, args) => {
 
 	// eslint-disable-next-line no-useless-escape
 	const matches = entry.embed_description.match(/\$\{\w+\}/g);
-	console.log(matches + ': ' + entry.embed_description);
 
 	let embedDescription = entry.embed_description;
-	console.log(matches);
 	for (const match of matches) {
 		const value = variables[match];
 		if (value) embedDescription = embedDescription.replace(match, value);

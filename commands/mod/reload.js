@@ -19,7 +19,6 @@ module.exports = {
 			message.client.commands.set(newCommand.name, newCommand);
 		}
 		catch (error) {
-			console.log(error);
 			return await message.channel.send(`There was an error while reloading a command \`${commandName}\`:\n\`${error.message}\``);
 		}
 		await message.channel.send(`Command \`${commandName}\` was reloaded!`);
