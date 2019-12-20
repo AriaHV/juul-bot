@@ -6,12 +6,12 @@ const getProfileBlacklistString = (statuses, padding) => {
 		return [s.prefix + ` [${status.scope}]`, s.message];
 	});
 	console.log('[blacklist.getProfileBlacklistString]:  ' + rows);
-	return getStringFromMatrix(rows, padding);
+	return getStringFromMatrix(rows);
 };
 
-const getStringFromMatrix = (rows, padding) => {
+const getStringFromMatrix = (rows) => {
 	const max = 20;
-	rows = rows.map(row => row.map(entry => entry.padEnd(max, ' ').join(' ')));
+	rows = rows.map(row => row.map(entry => entry.padEnd(max, ' ')).join(' '));
 	return rows.join('\n');
 };
 
