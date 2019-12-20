@@ -7,18 +7,12 @@ module.exports = {
 	usages: ['blacklist', 'blacklist set [scope] [value]'],
 
 	async execute(message, args) {
-		const database = message.client.database;
-		const user = message.author;
-		const guild = message.guild;
-		const channel = message.channel;
-
-		const globalBlacklistStatus = await db.getGlobalBlacklisted(database, user);
-		const guildBlacklistStatus = await db.getGuildBlacklistStatus(database, user, guild);
-		const channelBlacklistStatus = await db.getChannelBlacklistStatus(database, user, channel);
-
 		let command;
 		if (!args) {
 			command = message.client.commands['blacklist'].get('no-arguments');
+
+			// TODO: remove when done
+			console.log('[blacklist.execute]: ' + command);
 		}
 		else {
 			const commandName = args.shift();
