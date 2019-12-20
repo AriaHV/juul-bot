@@ -16,8 +16,29 @@ module.exports = {
 		const guildBlacklistStatus = await db.getGuildBlacklistStatus(database, user, guild);
 		const channelBlacklistStatus = await db.getChannelBlacklistStatus(database, user, channel);
 
-		await message.channel.send(`global:\t${globalBlacklistStatus}` +
-                                    `guild:\t${guildBlacklistStatus}` +
-                                    `channel:\t${channelBlacklistStatus}`);
+		let command;
+		if (!args) {
+			command = message.client.commands['blacklist'].get('no-arguments');
+		}
+		else {
+			const commandName = args.shift();
+			command =
+				message.client.commands['blacklist'].get(commandName)
+				|| message.client.commands['blacklist'].find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+		}
+
+		if (!command) return;
+
+		try {
+			command.execute(message, args);
+		}
+		catch (error) {
+			console.error(error);
+		}
+
+		// await message.channel.send(`global:\t${globalBlacklistStatus}\n` +
+		// `guild:\t${guildBlacklistStatus}` +
+		// `channel:\t${channelBlacklistStatus}`);
+
 	},
 };

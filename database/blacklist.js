@@ -4,9 +4,6 @@ const { queries } = require('./db');
 const BlacklistStatus = Object.freeze({ blacklist:0, inherit: 1, whitelist: 2 });
 
 const getGlobalBlacklisted = async (database, user) => {
-	// TODO: remove logging when done
-	console.log('[blacklist.getGlobalBlacklisted]:\t' + queries());
-
 	const result = await database.query(queries()['global-blacklist.get'], [normaliseId(user.id)]);
 	return (result.rows.length > 0) ? BlacklistStatus.blacklist : BlacklistStatus.whitelist;
 };

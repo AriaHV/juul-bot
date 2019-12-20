@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
-const { prefixes, embedColor } = require('../../config.json');
+const { embedColor } = require('../../config.json');
+const { getHelpHeaderString, getCommandsHelpString } = require('../../utils/help');
 
 module.exports = {
 	name: 'help',
@@ -9,7 +10,6 @@ module.exports = {
 
 	async execute(message, args) {
 		if (!args.length) {
-			const embedAuthor = 'juul - a general purpose bot';
 			const embedDescription = getEmbedDescription(message.client.commands['general']);
 
 			const embed = new Discord.RichEmbed()
@@ -23,36 +23,6 @@ module.exports = {
 
 const getEmbedDescription = (collection) => {
 	return [getHelpHeaderString(), getCommandsHelpString(collection)].join('\n\n');
-};
-
-const getHelpHeaderString = () => {
-	return 	'**juul** - a general purpose bot\n\n' +
-			'*Hi, I\'m Juul. I bring a variety of functionality ' +
-			' to your guild. My biggest strength? I will not reply to you with ' +
-			'response gifs if you don\'t want me to.';
-};
-
-const getCommandsHelpString = (collection) => {
-	collection = collection.map(x => getCommandString(x));
-	return collection.join('\n\n');
-};
-
-const getCommandString = (command) => {
-	return 	[getCommandTitleString(command),
-		getDescriptionString(command),
-		getCommandUsagesString(command)].join('\n');
-};
-
-const getCommandTitleString = (command) => {
-	return `**command: ${command.name}**`;
-};
-
-const getDescriptionString = (command) => {
-	return '*description*: ' + command.description;
-};
-
-const getCommandUsagesString = (command) => {
-	return '*usages*: ' + command.usages.map(x => `\`${prefixes[0]} ${x}\``).join(', ');
 };
 
 // const getEmbedDescription = (collection) => {
