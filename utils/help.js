@@ -1,4 +1,4 @@
-const { prefixes } = require('../../config.json');
+const { prefixes } = require('../config.json');
 
 const getHelpHeaderString = () => {
 	return 	'**juul** - a general purpose bot\n\n' +

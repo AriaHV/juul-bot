@@ -1,5 +1,5 @@
 const { RichEmbed, Client, Channel, Message } = require('discord.js');
-const { sendResponseCommand } = require('../../utils/utils');
+const { sendResponseCommand } = require('../../utils');
 
 module.exports = {
 	async execute(message, args) {
