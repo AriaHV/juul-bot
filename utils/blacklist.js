@@ -1,8 +1,25 @@
 const db = require('../database/blacklist');
 
-const getProfileBlacklistString = (scope, status) => {
-	const s = getProfileBlacklistStatusStrings(status);
-	return [s.prefix, `[${scope}]:\t\t`, s.message].join(' ');
+const getProfileBlacklistString = (statuses, padding) => {
+	const rows = statuses.map(status => {
+		const s = getProfileBlacklistStatusStrings(status.status);
+		return [s.prefix, `[${status.scope}]`, s.nessage];
+	});
+
+	return getStringFromMatrix(rows, padding);
+};
+
+const getStringFromMatrix = (rows, padding) => {
+	const n = rows[0].length;
+	const max = [];
+	for (let i = 0; i < rows[0].length; i++) max.push(max(rows.map(row => row[i])));
+	rows = rows.map(row => paddedStringRow(row, max).join(' '.repeat(padding)));
+	return rows.join('\n');
+};
+
+const paddedStringRow = (row, max) => {
+	for (let i = 0; i < row.length; i++) row[i] = row[i] + ' '.repeat(max[i] - row[i].length);
+	return row;
 };
 
 const allowResponseCommands = async (database, users, guild, channel) => {
