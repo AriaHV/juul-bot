@@ -21,8 +21,8 @@ module.exports = {
 
 		const statuses = [];
 		statuses.push({ scope:'global', status: globalStatus });
-		statuses.push({ scope:guild.name, status: globalStatus });
-		statuses.push({ scope:channel.name, status: globalStatus });
+		statuses.push({ scope:guild.name, status: guildStatus });
+		statuses.push({ scope:channel.name, status: channelStatus });
 		const s = getProfileBlacklistString(statuses, 2);
 
 		const embedDescription = `**${user.username}'s blacklist profile**` +
