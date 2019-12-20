@@ -16,8 +16,8 @@ module.exports = {
 		const guildBlacklistStatus = await db.getGuildBlacklistStatus(database, user, guild);
 		const channelBlacklistStatus = await db.getChannelBlacklistStatus(database, user, channel);
 
-		await message.channel.send(`global:\t${globalBlacklistStatus}` +
-                                    `guild:\t${guildBlacklistStatus}` +
+		await message.channel.send(`global:\t${globalBlacklistStatus}\n` +
+                                    `guild:\t${guildBlacklistStatus}\n` +
                                     `channel:\t${channelBlacklistStatus}`);
 	},
 };
