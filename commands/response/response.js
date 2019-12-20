@@ -10,7 +10,7 @@ module.exports = {
 			return;
 		}
 
-		const database = message.Client.database;
+		const database = message.client.database;
 		const mentioned = message.mentions.users;
 		const guild = message.guild;
 		const channel = message.channel;
