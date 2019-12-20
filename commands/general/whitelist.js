@@ -9,9 +9,9 @@ module.exports = {
 	async execute(message, args) {
 		const database = message.client.database;
 		const user = message.author;
-		const whitelisted = (await db.getGlobalBlacklisted(database, user) == db.BlacklistStatus.whitelist);
+		const status = await db.getGlobalBlacklisted(database, user);
 
-		if (whitelisted) {
+		if (status == db.BlacklistStatus.whitelist) {
 			message.reply('you already whitelist tag-response commands on a global scope');
 			return;
 		}
