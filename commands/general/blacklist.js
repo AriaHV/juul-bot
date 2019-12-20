@@ -8,8 +8,8 @@ module.exports = {
 
 	async execute(message, args) {
 		let command;
-		if (!args) {
-			command = message.client.commands['blacklist'].get('no-arguments');
+		if (args.length == 0) {
+			command = message.client.commands['blacklist'].get('no-argument');
 
 			// TODO: remove when done
 			console.log('[blacklist.execute]: ' + command);
