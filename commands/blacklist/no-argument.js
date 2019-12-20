@@ -12,11 +12,11 @@ module.exports = {
 		const blacklisted = (await db.getGlobalBlacklisted(database, user) == db.BlacklistStatus.blacklist);
 
 		if (blacklisted) {
-			message.reply('you already blacklist tag-response commands on a global scope');
+			await message.reply('you already blacklist tag-response commands on a global scope');
 			return;
 		}
 
-		db.setGlobalBlacklisted(database, user, true);
-		message.reply('you now blacklist tag-response commands on a global scope');
+		await db.setGlobalBlacklisted(database, user, true);
+		await message.reply('you now blacklist tag-response commands on a global scope');
 	},
 };
