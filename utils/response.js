@@ -18,10 +18,10 @@ const getText = (message, entry, variables) => {
 	const author = { user: message.author, member: message.member };
 	let text;
 
-	const users = message.mentions.map(mention => mention.user);
-	const members = message.mentions.map(mention => mention.member);
+	const users = message.mentions.users.map(mention => mention);
+	// const members = message.mentions.map(mention => mention.member);
 	console.log(users);
-	console.log(members);
+	// console.log(members);
 
 	// Get raw text based on who's mentioned
 	console.log('[utils/response.getText()]: ' + users[0] + ' - ' + client.user);
