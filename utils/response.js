@@ -11,7 +11,7 @@ const sendResponseCommand = async (message, name) => {
 };
 
 const getText = (message, entry, variables) => {
-	const mentioned = message.mentioned;
+	const mentioned = message.mentions;
 	const client = message.client;
 	const author = { user: message.author, member: message.member };
 	let text;
