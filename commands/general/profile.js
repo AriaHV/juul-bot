@@ -25,7 +25,7 @@ module.exports = {
 		statuses.push({ scope:channel.name, status: channelStatus });
 		const s = getProfileBlacklistString(statuses, 2);
 
-		const embedDescription = `**${user.username}'s blacklist profile**` +
+		const embedDescription = `**${message.member.nickname || message.author.username}'s blacklist profile**` +
         '```diff\n' +
         s +
 		'```';

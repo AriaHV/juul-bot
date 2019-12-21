@@ -29,7 +29,7 @@ const sendResponseCommand = (message, entry, args) => {
 		.map(member => member.nickname || member.user.username)
 		.join(', ');
 
-	variables['${author}'] = message.author.username;
+	variables['${author}'] = message.member.nickname || message.author.username;
 
 	// eslint-disable-next-line no-useless-escape
 	const matches = entry.embed_description.match(/\$\{\w+\}/g);
