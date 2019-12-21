@@ -20,7 +20,7 @@ const getText = (message, entry, variables) => {
 	let text;
 
 	// Get raw text based on who's mentioned
-	console.log('[utils/response.getText()]: ' + mentioned.users.length + ' - ' + mentioned.users[0].id + client.user.id);
+	console.log('[utils/response.getText()]: ' + mentioned.users.length + ' - ' + mentioned.users + client.user.id);
 	if (mentioned.users.length == 1 && mentioned.users[0].equals(client.user)) { text = 'You mentioned the me! Thank you ${author}'; }
 	else if (mentioned.users.length == 1 && mentioned.users[0].equals(author.user)) { text = '${author}, you mentioned yourself. I\'ll give you some attention!'; }
 	else { text = entry.embed_description; }
