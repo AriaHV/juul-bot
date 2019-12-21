@@ -6,8 +6,11 @@ const sendResponseCommand = async (message, name) => {
 	const variables = getVariables(message);
 	const text = getText(message, entry, variables);
 
-	const embed = new RichEmbed().setImage(entry.embed_image);
-	await message.channel.send(text + '\n' + embed);
+	const embed = new RichEmbed()
+		.setDescription(text)
+		.setImage(entry.embed_image);
+
+	await message.channel.send(embed);
 };
 
 const getText = (message, entry, variables) => {
