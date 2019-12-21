@@ -49,4 +49,4 @@ const getVariables = (message) => {
 };
 
 
-module.exports = {};
+module.exports = { sendResponseCommand };
