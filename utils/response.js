@@ -1,6 +1,5 @@
 const { Client, RichEmbed } = require('discord.js');
-const { blacklist } = require('./blacklist');
-const { response } = require('../database/response');
+const { getResponseEntries } = require('../database/response');
 
 const sendResponseCommand = async (message, name) => {
 	const entry = await getEntry(message, name);
@@ -34,7 +33,7 @@ const getText = (message, entry, variables) => {
 
 const getEntry = async (message, name) => {
 	const database = message.client.database;
-	const entries = await response.getResponseEntries(database, name);
+	const entries = await getResponseEntries(database, name);
 
 	// Return if entries could not be found
 	if (!entries) return;
