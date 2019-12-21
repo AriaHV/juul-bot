@@ -1,10 +1,9 @@
 const { RichEmbed, Client, Channel, Message } = require('discord.js');
-const { sendResponseCommand } = require('../../utils');
+const { sendResponseCommand } = require('../../utils/response');
 const { allowResponseCommands } = require('../../utils/blacklist');
 
 module.exports = {
 	async execute(message, args) {
-
 		if (message.mentions.users.size < 1) {
 			await message.reply('you need to mention one or more users to use a response command.');
 			return;
@@ -15,17 +14,15 @@ module.exports = {
 		const guild = message.guild;
 		const channel = message.channel;
 
+		// On any user blacklisting response commands, send a DM to the author and return
 		const allow = await allowResponseCommands(database, mentioned, guild, channel);
-		if (!allow) return;
-
-		const commandName = args[0];
-		const entries = await database.getResponseCommands(commandName);
-
-		if (entries) {
-			const entry = entries.rows[Math.floor(Math.random() * entries.rows.length)];
-			await sendResponseCommand(message, entry);
+		if (!allow) {
+			const dm = await message.author.createDM();
+			await dm.send('One of the members you just mentioned blacklists response-commands.');
+			return;
 		}
 
-
+		const name = args[0];
+		await sendResponseCommand(message, name);
 	},
 };
