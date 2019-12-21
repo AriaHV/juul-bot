@@ -25,8 +25,8 @@ const isBotAuthor = (user) => {
 
 const sendResponseCommand = (message, entry, args) => {
 	const variables = {};
-	variables['${mentioned}'] = message.mentions.users
-		.map(user => user.username)
+	variables['${mentioned}'] = message.mentions.members
+		.map(member => member.nickname || member.user.username)
 		.join(', ');
 
 	variables['${author}'] = message.author.username;
