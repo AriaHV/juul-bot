@@ -19,9 +19,9 @@ const getText = (message, entry, variables) => {
 	let text;
 
 	// Get raw text based on who's mentioned
-	console.log('[utils/response.getText()]: ' + message.mentions + ' - ' + message.mentions.users + client.user.id);
-	if (message.mentions.users.length == 1 && message.mentions.users[0].equals(client.user)) { text = 'You mentioned the me! Thank you ${author}'; }
-	else if (message.mentions.users.length == 1 && message.mentions.users[0].equals(author.user)) { text = '${author}, you mentioned yourself. I\'ll give you some attention!'; }
+	console.log('[utils/response.getText()]: ' + message.mentions.users.values[0] + ' - ' + message.mentions.users + client.user.id);
+	if (message.mentions.users.length == 1 && message.mentions.users.values[0].equals(client.user)) { text = 'You mentioned the me! Thank you ${author}'; }
+	else if (message.mentions.users.length == 1 && message.mentions.users.values[0].equals(author.user)) { text = '${author}, you mentioned yourself. I\'ll give you some attention!'; }
 	else { text = entry.embed_description; }
 
 	// Insert variables into raw text
