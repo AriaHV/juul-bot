@@ -18,10 +18,15 @@ const getText = (message, entry, variables) => {
 	const author = { user: message.author, member: message.member };
 	let text;
 
+	const users = message.mentions.map(mention => mention.user);
+	const members = message.mentions.map(mention => mention.member);
+	console.log(users);
+	console.log(members);
+
 	// Get raw text based on who's mentioned
-	console.log('[utils/response.getText()]: ' + message.mentions.users.values()[0] + ' - ' + message.mentions.users + client.user.id);
-	if (message.mentions.users.length == 1 && message.mentions.users.values()[0].equals(client.user)) { text = 'You mentioned the me! Thank you ${author}'; }
-	else if (message.mentions.users.length == 1 && message.mentions.users.values()[0].equals(author.user)) { text = '${author}, you mentioned yourself. I\'ll give you some attention!'; }
+	console.log('[utils/response.getText()]: ' + users[0] + ' - ' + client.user);
+	if (users.length == 1 && users[0].equals(client.user)) { text = 'You mentioned the me! Thank you ${author}'; }
+	else if (users.length == 1 && users[0].equals(author.user)) { text = '${author}, you mentioned yourself. I\'ll give you some attention!'; }
 	else { text = entry.embed_description; }
 
 	// Insert variables into raw text
