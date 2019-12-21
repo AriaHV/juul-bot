@@ -1,24 +1,27 @@
 const { readdirSync, readFileSync, openSync } = require('fs');
 const { Pool } = require('pg');
 
-const loadQueries = () => {
+const queries = () => {
 	const dir = readdirSync('./sql', 'utf8');
-	const queries = {};
+	const q = {};
 	for (const file of dir) {
 		if (file.endsWith('.sql')) {
-			queries[file.substring(0, file.length - '.sql'.length)] = readFileSync(openSync('./sql/' + file), 'utf8');
+			q[file.substring(0, file.length - '.sql'.length)] = readFileSync(openSync('./sql/' + file), 'utf8');
 		}
 	}
-	return queries;
+	return q;
 };
+
 
 const normaliseId = (id) => parseInt(id).toString(16);
 
 class Database {
 	constructor() {
 		this.db = new Pool({ connectionString: process.env.DATABASE_URL });
-		this.queries = loadQueries();
+		this.queries = queries();
 	}
+
+	query(query, args) { return this.db.query(query, args); }
 
 	async isExcluded(user) {
 		const queryString = this.queries['user-exclusion.get'];
@@ -35,8 +38,6 @@ class Database {
 	async isAnyExcluded(user, guild) {
 		const excluded = await this.isExcluded(user);
 		const guildExcluded = await this.isGuildExcluded(user, guild);
-		console.log('global: ' + excluded);
-		console.log('local: ' + guildExcluded);
 		return excluded || guildExcluded;
 	}
 
@@ -69,7 +70,6 @@ class Database {
 		const queryString = this.queries['response-command-names.get'];
 		return this.db.query(queryString);
 	}
-
 }
 
-module.exports = { Database };
+module.exports = { Database, queries, normaliseId };

@@ -1,25 +1,25 @@
 const { RichEmbed, Client, Channel, Message } = require('discord.js');
 const { sendResponseCommand } = require('../../utils');
+const { allowResponseCommands } = require('../../utils/blacklist');
 
 module.exports = {
 	async execute(message, args) {
-		const db = message.client.database;
 
 		if (message.mentions.users.size < 1) {
 			await message.reply('you need to mention one or more users to use a response command.');
 			return;
 		}
 
-		const global = await Promise.all(message.mentions.users.map(user => db.isExcluded(user)));
-		const guild = await Promise.all(message.mentions.users.map(user => db.isGuildExcluded(user, message.guild)));
+		const database = message.client.database;
+		const mentioned = message.mentions.users;
+		const guild = message.guild;
+		const channel = message.channel;
 
-		if (global.includes(true) || guild.includes(true)) {
-			// Do stuff before returning
-			return;
-		}
+		const allow = await allowResponseCommands(database, mentioned, guild, channel);
+		if (!allow) return;
 
 		const commandName = args[0];
-		const entries = await db.getResponseCommands(commandName);
+		const entries = await database.getResponseCommands(commandName);
 
 		if (entries) {
 			const entry = entries.rows[Math.floor(Math.random() * entries.rows.length)];

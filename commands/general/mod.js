@@ -20,7 +20,6 @@ module.exports = {
 			message.client.commands['mod'].get(commandName)
 			|| message.client.commands['mod'].find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
-		console.log(command);
 		if (!command) return;
 
 		try {
