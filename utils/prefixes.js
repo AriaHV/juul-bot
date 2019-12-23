@@ -1,5 +1,5 @@
-const { prefixesBot } = require('./../config/prefixes.json');
-const { prefixesTesting } = require('./../config/testing.json').prefixes;
+const prefixesBot = require('./../config/');
+const prefixesTesting = require('./../config/testing.json').prefixes;
 
 
 // Gets a list of valid prefixes
@@ -7,9 +7,6 @@ const { prefixesTesting } = require('./../config/testing.json').prefixes;
 // Return: array of objects {value, seperator}
 const getPrefixes = (database, testing) => {
 	const prefixesDefault = testing ? prefixesTesting : prefixesBot;
-	console.log(prefixesBot);
-	console.log(prefixesTesting);
-	console.log(prefixesDefault);
 	return prefixesDefault;
 };
 
