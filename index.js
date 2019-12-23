@@ -49,7 +49,7 @@ client.on('message', async message => {
 		return;
 	}
 
-	await client.families['general'].execute(message, args);
+	await client.families['general'].main.execute(message, args);
 });
 
 client.login(process.env.DISCORD_TOKEN || process.env.DISCORD_TESTING_TOKEN);
