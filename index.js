@@ -29,30 +29,27 @@ client.on('message', async message => {
 	const prefixedMessage = getPrefixedMessage(message.content, message.client.prefixes);
 	if (!prefixedMessage || message.author.bot) return;
 
-	const prefixUsed = prefixedMessage.prefix;
-	const argsUsed = prefixedMessage.args;
-	const familyUsed = argsUsed.shift().toLowerCase();
+	const prefix = prefixedMessage.prefix;
+	const args = prefixedMessage.args;
 
-	const family = client.families[familyUsed];
+	const family = client.families[args[0].toLowerCase()];
+	if (family) {
+		if (!family.main) {
+			console.log('main module not found');
+			return;
+		}
+		if (family.main.valid && !family.valid.main.valid(message)) {
+			console.log('Command usage is not valid');
+			return;
+		}
 
-	if (!family) {
-		console.log('family not found');
+		console.log('family.commands: ' + family.commands);
+		args.unshift(family.commands);
+		await family.main.execute(message, args);
 		return;
 	}
 
-	if (!family.main) {
-		console.log('main module not found');
-		return;
-	}
-
-	if (family.main.valid && !family.valid.main.valid(message, argsUsed)) {
-		console.log('Command usage is not valid');
-		return;
-	}
-
-	console.log('family.commands: ' + family.commands);
-	argsUsed.unshift(family.commands);
-	await family.main.execute(message, argsUsed);
+	await client.families['general'].execute(message, args);
 });
 
 client.login(process.env.DISCORD_TOKEN || process.env.DISCORD_TESTING_TOKEN);
