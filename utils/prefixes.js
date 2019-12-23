@@ -1,5 +1,5 @@
-const { prefixesBot } = require('../config/prefixes.json');
-const { prefixesTesting } = require('../config/testing.json').prefixes;
+const { prefixesBot } = require('./../config/prefixes.json');
+const { prefixesTesting } = require('./../config/testing.json').prefixes;
 
 
 // Gets a list of valid prefixes

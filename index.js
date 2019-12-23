@@ -11,8 +11,6 @@ client.database = new Database();
 client.commands = getCommands();
 client.testing = process.env.DISCORD_TOKEN ? false : true;
 client.prefixes = getPrefixes(client.database, client.testing);
-console.log(require('./config/testing.json'));
-console.log(require('./config/testing.json').prefixes);
 console.log(client.prefixes);
 
 client.once('ready', () => {
