@@ -15,6 +15,7 @@ const getPrefixes = (database, testing) => {
 // Returns: an a prefixed-message object {prefix, args}
 const getPrefixedMessage = (message, prefixes) => {
 	const prefix = prefixes.map(elem => elem.value + elem.seperator).find(elem => message.startsWith(elem));
+	if (!prefix) return;
 	return { prefix: prefix, args: message.substring(prefix.length).split(/ +/) };
 };
 
