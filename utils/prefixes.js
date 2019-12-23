@@ -1,4 +1,4 @@
-const prefixesBot = require('./../config/');
+const prefixesBot = require('./../config/prefixes.json');
 const prefixesTesting = require('./../config/testing.json').prefixes;
 
 
