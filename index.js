@@ -10,7 +10,8 @@ const { getPrefixes, getPrefixedMessage } = require('./utils/prefixes');
 const client = new Discord.Client();
 client.database = new Database();
 client.commands = getCommands();
-client.prefixes = (process.env.DISCORD_TOKEN) ? getPrefixes(client.database) : testingPrefixes;
+client.testing = process.env.DISCORD_TOKEN ? false : true;
+client.prefixes = getPrefixes(client.database, client.testing);
 
 client.once('ready', () => {
 	console.log('Ready!');

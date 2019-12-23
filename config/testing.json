@@ -1,0 +1,7 @@
+{
+    "prefixes": [
+        {"value": "test",   "seperator": " "},
+        {"value": "-t",     "seperator": " "},
+        {"value": "t",      "seperator": "."}
+    ]
+}

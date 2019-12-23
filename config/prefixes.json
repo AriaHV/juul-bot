@@ -1,5 +1,5 @@
 [
-    {"value": "juul", "seperator": " "},
-    {"value": "-j", "seperator": " "},
-    {"value": "j", "seperator":  "."}
+    {"value": "juul",   "seperator": " "},
+    {"value": "-j",     "seperator": " "},
+    {"value": "j",      "seperator":  "."}
 ]

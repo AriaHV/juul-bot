@@ -1,10 +1,13 @@
 const { prefixesBot } = require('../config/prefixes.json');
+const { prefixesTesting } = require('../config/testing.json').prefixes;
+
 
 // Gets a list of valid prefixes
 // Arguments: a database object as defined in database/db.js
 // Return: array of objects {value, seperator}
-const getPrefixes = (database) => {
-	return prefixesBot;
+const getPrefixes = (database, testing) => {
+	const prefixesDefault = testing ? prefixesTesting : prefixesBot;
+	return prefixesDefault;
 };
 
 // Checks if a string starts with a prefix format.
