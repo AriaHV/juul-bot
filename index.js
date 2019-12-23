@@ -31,34 +31,26 @@ client.on('message', async message => {
 
 	const prefixUsed = prefixedMessage.prefix;
 	const argsUsed = prefixedMessage.args;
-	const commandUsed = argsUsed.shift().toLowerCase();
+	const familyUsed = argsUsed.shift().toLowerCase();
 
-	// Check for general and response commands
-	let command =
-		client.commands['general'].get(commandUsed)
-		|| client.commands['general'].find(cmd => cmd.aliases && cmd.aliases.includes(commandUsed));
+	const family = client.families[familyUsed];
 
-	// Check for author commands3
-	if (isBotAuthor(message.author)) {
-		const authorCommand = client.commands['author'].get(commandUsed)
-			|| client.commands['author'].find(cmd => cmd.aliases && cmd.aliases.includes(commandUsed));
-		if (authorCommand) command = authorCommand;
+	if (!family) {
+		console.log('family not found');
+		return;
 	}
 
-	if (command) {
-		try {
-			await command.execute(message, argsUsed);
-		}
-		catch (error) {
-			console.error(error);
-		}
+	if (!family.main) {
+		console.log('main module not found');
+		return;
 	}
 
-	const responseCommandNames = await client.database.getResponseCommandNames();
-	if (responseCommandNames.rows.map(x => x.command_name).includes(commandUsed)) {
-		response.execute(message, [commandUsed]);
+	if (family.main.valid && !family.valid.main.valid(message, argsUsed)) {
+		console.log('Command usage is not valid');
+		return;
 	}
 
+	await family.main.execute(message, argsUsed);
 });
 
 client.login(process.env.DISCORD_TOKEN || process.env.DISCORD_TESTING_TOKEN);
