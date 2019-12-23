@@ -7,10 +7,9 @@ const sendResponseCommand = async (message, name) => {
 	const text = getText(message, entry, variables);
 
 	const embed = new RichEmbed()
-		.setDescription(text)
 		.setImage(entry.embed_image);
 
-	await message.channel.send(embed);
+	await message.channel.send(text, embed);
 };
 
 const getText = (message, entry, variables) => {
