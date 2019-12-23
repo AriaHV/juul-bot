@@ -5,11 +5,12 @@ const { Database } = require('./database/db.js');
 const { prefixes, testingPrefixes } = require('./config.json');
 const { getCommands, isBotAuthor, sendResponseCommand } = require('./utils');
 const response = require('./commands/response/response');
+const { getPrefixes, getPrefixedMessage } = require('./utils/prefixes');
 
 const client = new Discord.Client();
 client.database = new Database();
 client.commands = getCommands();
-client.prefixes = (process.env.DISCORD_TOKEN) ? prefixes : testingPrefixes;
+client.prefixes = (process.env.DISCORD_TOKEN) ? getPrefixes(client.database) : testingPrefixes;
 
 client.once('ready', () => {
 	console.log('Ready!');
@@ -18,28 +19,30 @@ client.once('ready', () => {
 });
 
 client.on('message', async message => {
-	const args = message.content.split(/ +/);
 
-	if (!client.prefixes.includes(args[0]) || message.author.bot) return;
+	// Parse the message into a prefixedMessage and return if this is not a prefixed message or if the message author was a bot
+	const prefixedMessage = getPrefixedMessage(message.content, message.client.prefixes);
+	if (!prefixedMessage || message.author.bot) return;
 
-	const prefixUsed = args.shift().toLowerCase();
-	const commandName = args.shift().toLowerCase();
+	const prefixUsed = prefixedMessage.prefix;
+	const argsUsed = prefixedMessage.args;
+	const commandUsed = argsUsed.shift().toLowerCase();
 
 	// Check for general and response commands
 	let command =
-		client.commands['general'].get(commandName)
-		|| client.commands['general'].find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+		client.commands['general'].get(commandUsed)
+		|| client.commands['general'].find(cmd => cmd.aliases && cmd.aliases.includes(commandUsed));
 
 	// Check for author commands3
 	if (isBotAuthor(message.author)) {
-		const authorCommand = client.commands['author'].get(commandName)
-			|| client.commands['author'].find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+		const authorCommand = client.commands['author'].get(commandUsed)
+			|| client.commands['author'].find(cmd => cmd.aliases && cmd.aliases.includes(commandUsed));
 		if (authorCommand) command = authorCommand;
 	}
 
 	if (command) {
 		try {
-			await command.execute(message, args);
+			await command.execute(message, argsUsed);
 		}
 		catch (error) {
 			console.error(error);
@@ -47,8 +50,8 @@ client.on('message', async message => {
 	}
 
 	const responseCommandNames = await client.database.getResponseCommandNames();
-	if (responseCommandNames.rows.map(x => x.command_name).includes(commandName)) {
-		response.execute(message, [commandName]);
+	if (responseCommandNames.rows.map(x => x.command_name).includes(commandUsed)) {
+		response.execute(message, [commandUsed]);
 	}
 
 });
