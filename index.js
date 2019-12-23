@@ -50,6 +50,8 @@ client.on('message', async message => {
 		return;
 	}
 
+	console.log('family.commands: ' + family.commands);
+	argsUsed.unshift(family.commands);
 	await family.main.execute(message, argsUsed);
 });
 
