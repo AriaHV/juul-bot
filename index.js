@@ -5,10 +5,14 @@ const { Database } = require('./database/db.js');
 const { getCommands, isBotAuthor, sendResponseCommand } = require('./utils');
 const response = require('./commands/response/response');
 const { getPrefixes, getPrefixedMessage } = require('./utils/prefixes');
+const { getFamilies } = require('./utils/families');
 
 const client = new Discord.Client();
 client.database = new Database();
 client.commands = getCommands();
+client.families = getFamilies();
+console.log(client.families);
+console.log(client.families['general']);
 client.testing = process.env.DISCORD_TOKEN ? false : true;
 client.prefixes = getPrefixes(client.database, client.testing);
 console.log(client.prefixes);
