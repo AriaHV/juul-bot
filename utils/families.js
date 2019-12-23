@@ -9,7 +9,6 @@ module.exports = {
 
 		for (const family of directories) {
 			const files = readdirSync(`${path}/${family}`).filter(x => x.endsWith('.js'));
-			console.log(family);
 			families[family] = {
 				main: require(`${path}/${family}/${files.find(file => isMainFile(family, file))}`),
 				commands: files

@@ -4,7 +4,6 @@ module.exports = {
 	description: 'A family of general purpose functionality that does not have a more specific family.',
 
 	execute: async (message, args) => {
-		console.log(args);
 		const family = message.client.families['general'].commands;
 		const input = args.shift().toLowerCase();
 
@@ -14,7 +13,6 @@ module.exports = {
 		if (!command) return false;
 
 		try {
-			console.log(command);
 			await command.execute(message, args);
 			return true;
 		}

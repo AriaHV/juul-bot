@@ -13,7 +13,6 @@ module.exports = {
 		if (!command) return false;
 
 		try {
-			console.log(command);
 			await command.execute(message, args);
 			return true;
 		}

@@ -18,12 +18,8 @@ const getText = (message, entry, variables) => {
 	let text;
 
 	const users = message.mentions.users.map(mention => mention);
-	// const members = message.mentions.map(mention => mention.member);
-	console.log(users);
-	// console.log(members);
 
 	// Get raw text based on who's mentioned
-	console.log('[utils/response.getText()]: ' + users[0] + ' - ' + client.user);
 	if (users.length == 1 && users[0].equals(client.user)) { text = 'You mentioned the me! Thank you ${author}'; }
 	else if (users.length == 1 && users[0].equals(author.user)) { text = '${author}, you mentioned yourself. I\'ll give you some attention!'; }
 	else { text = entry.embed_description; }

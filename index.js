@@ -23,11 +23,7 @@ client.on('message', async message => {
 	if (!prefixedMessage || message.author.bot) return;
 	const prefix = prefixedMessage.prefix;
 	const args = prefixedMessage.args;
-
-	console.log(args);
-
 	if(await client.families['general'].main.execute(message, args)) return;
-
 	const family = client.families[args[0].	toLowerCase()];
 	if (family && family.main) {
 		if (family.valid && !family.valid(message, args)) return;
