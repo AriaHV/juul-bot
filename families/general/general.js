@@ -13,6 +13,7 @@ module.exports = {
 		if (!command) return;
 
 		try {
+			console.log(command);
 			await command.execute(message, args);
 		}
 		catch (error) {
