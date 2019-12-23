@@ -7,10 +7,9 @@ module.exports = {
 		const family = args.shift();
 		const input = args.shift().toLowerCase();
 
-		console.log(family);
 		const command =
-			family.commands.find(x => x.name && x.name.equals(input))
-			|| family.commands.find(x => x.aliases && x.aliases.includes(input));
+			family.find(x => x.name && x.name.equals(input))
+			|| family.find(x => x.aliases && x.aliases.includes(input));
 		if (!command) return;
 
 		try {
