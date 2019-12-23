@@ -12,10 +12,13 @@ client.database = new Database();
 client.commands = getCommands();
 client.testing = process.env.DISCORD_TOKEN ? false : true;
 client.prefixes = getPrefixes(client.database, client.testing);
+console.log(require('./config/testing.json'));
+console.log(require('./config/testing.json').prefixes);
+console.log(prefixes);
 
 client.once('ready', () => {
 	console.log('Ready!');
-	client.user.setPresence({ game: { name: `${prefixes[0]} help` } });
+	client.user.setPresence({ game: { name: `${client.prefixes[0]} help` } });
 
 });
 
