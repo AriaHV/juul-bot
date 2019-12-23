@@ -28,28 +28,18 @@ client.on('message', async message => {
 	// Parse the message into a prefixedMessage and return if this is not a prefixed message or if the message author was a bot
 	const prefixedMessage = getPrefixedMessage(message.content, message.client.prefixes);
 	if (!prefixedMessage || message.author.bot) return;
-
 	const prefix = prefixedMessage.prefix;
 	const args = prefixedMessage.args;
 
+	console.log(args);
+
+	if(await client.families['general'].main.execute(message, args)) return;
+
 	const family = client.families[args[0].toLowerCase()];
-	if (family) {
-		if (!family.main) {
-			console.log('main module not found');
-			return;
-		}
-		if (family.main.valid && !family.valid.main.valid(message)) {
-			console.log('Command usage is not valid');
-			return;
-		}
-
-		console.log('family.commands: ' + family.commands);
-		args.unshift(family.commands);
-		await family.main.execute(message, args);
-		return;
+	if (family && family.main) {
+		if (family.valid && !family.valid(message, args)) return;
+		await family.main.excute(message, args);
 	}
-
-	await client.families['general'].main.execute(message, args);
 });
 
 client.login(process.env.DISCORD_TOKEN || process.env.DISCORD_TESTING_TOKEN);
