@@ -2,7 +2,6 @@ require('dotenv').config();
 const fs = require('fs');
 const Discord = require('discord.js');
 const { Database } = require('./database/db.js');
-const { prefixes, testingPrefixes } = require('./config.json');
 const { getCommands, isBotAuthor, sendResponseCommand } = require('./utils');
 const response = require('./commands/response/response');
 const { getPrefixes, getPrefixedMessage } = require('./utils/prefixes');
@@ -14,11 +13,11 @@ client.testing = process.env.DISCORD_TOKEN ? false : true;
 client.prefixes = getPrefixes(client.database, client.testing);
 console.log(require('./config/testing.json'));
 console.log(require('./config/testing.json').prefixes);
-console.log(prefixes);
+console.log(client.prefixes);
 
 client.once('ready', () => {
 	console.log('Ready!');
-	client.user.setPresence({ game: { name: `${client.prefixes[0]} help` } });
+	client.user.setPresence({ game: { name: `${client.prefixes[0].value + client.prefixes[0].seperator}help` } });
 
 });
 
