@@ -20,8 +20,8 @@ const getText = (message, entry, variables) => {
 	const users = message.mentions.users.map(mention => mention);
 
 	// Get raw text based on who's mentioned
-	if (users.length == 1 && users[0].equals(client.user)) { text = 'You mentioned the me! Thank you ${author}'; }
-	else if (users.length == 1 && users[0].equals(author.user)) { text = '${author}, you mentioned yourself. I\'ll give you some attention!'; }
+	if (users.length == 1 && users[0].id === client.user.id) { text = 'You mentioned the me! Thank you ${author}'; }
+	else if (users.length == 1 && users[0].id === author.user.id) { text = '${author}, you mentioned yourself. I\'ll give you some attention!'; }
 	else { text = entry.embed_description; }
 
 	// Insert variables into raw text
