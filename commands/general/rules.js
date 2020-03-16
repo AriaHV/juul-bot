@@ -18,6 +18,6 @@ module.exports = {
             },
         ];
 
-        await Promise.all(rules.map((rule, index) => message.channel.post(`**${index}. ${rule.title}**\n\n${rule.description}`)));
+        await Promise.all(rules.map((rule, index) => message.channel.send(`**${index}. ${rule.title}**\n\n${rule.description}`)));
     },
 };
