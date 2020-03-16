@@ -18,9 +18,6 @@ const getText = (message, entry, variables) => {
 	let text;
 
 	const users = message.mentions.users.map(mention => mention);
-	// const members = message.mentions.map(mention => mention.member);
-	console.log(users);
-	// console.log(members);
 
 	// Get raw text based on who's mentioned
 	if (users.length == 1 && users[0].id === client.user.id) { text = 'You mentioned the me! Thank you ${author}'; }
